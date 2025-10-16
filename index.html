@@ -415,6 +415,7 @@
             <h1>VICOY PHOTOGRAPHY</h1>
             <nav>
                 <a href="#home">HOME PAGE</a>
+                <a href="#featured">FEATURED STORIES</a>
                 <a href="#gallery">GALLERY</a>
                 <a href="#packages">PACKAGES</a>
                 <a href="#process">MY PROCESS</a>
@@ -428,6 +429,80 @@
         <p>Natural, authentic photography that tells your unique story. From engagement shoots to special occasions, I'm here to frame your feelings.</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZ5iTwbWIP5Atmtb8HwQUgYHUuxDEZgbahmHp5aJtWXU8SLw/viewform?usp=header" target="_blank" class="cta-button">Book Your Session</a>
     </section>
+
+    <section id="featured" class="section featured-stories">
+        <div class="container">
+            <h2 class="section-title">FEATURED STORIES</h2>
+            <div class="featured-intro">
+                <p class="featured-subtitle">LOVE IN MOTION. MOMENTS IN FRAME SINCE 2025</p>
+                <p>Each gallery is a chapter of real emotions and fleeting details, curated to feel like scenes from a film.</p>
+                <p>These aren't just photos; they're stories, moments that speak, breathe, and linger.</p>
+                <p>Let's begin yours and create a narrative you'll relive for years to come.</p>
+            </div>
+            <div class="stories-grid">
+                <div class="story-item large" onclick="openStory('story1')">
+                    <img src="Image1.jpg" alt="Featured Story 1">
+                    <div class="story-overlay">
+                        <h3>Sunset Romance</h3>
+                    </div>
+                </div>
+                <div class="story-item" onclick="openStory('story2')">
+                    <img src="Image2.jpg" alt="Featured Story 2">
+                    <div class="story-overlay">
+                        <h3>Beach Memories</h3>
+                    </div>
+                </div>
+                <div class="story-item" onclick="openStory('story3')">
+                    <img src="Image3.jpg" alt="Featured Story 3">
+                    <div class="story-overlay">
+                        <h3>Urban Love</h3>
+                    </div>
+                </div>
+                <div class="story-item" onclick="openStory('story4')">
+                    <img src="Image4.jpg" alt="Featured Story 4">
+                    <div class="story-overlay">
+                        <h3>Golden Hour</h3>
+                    </div>
+                </div>
+                <div class="story-item" onclick="openStory('story5')">
+                    <img src="Image5.jpg" alt="Featured Story 5">
+                    <div class="story-overlay">
+                        <h3>Intimate Moments</h3>
+                    </div>
+                </div>
+                <div class="story-item large" onclick="openStory('story6')">
+                    <img src="Image6.jpg" alt="Featured Story 6">
+                    <div class="story-overlay">
+                        <h3>Together Forever</h3>
+                    </div>
+                </div>
+                <div class="story-item" onclick="openStory('story7')">
+                    <img src="Image7.jpg" alt="Featured Story 7">
+                    <div class="story-overlay">
+                        <h3>By The Sea</h3>
+                    </div>
+                </div>
+                <div class="story-item" onclick="openStory('story8')">
+                    <img src="Image8.jpg" alt="Featured Story 8">
+                    <div class="story-overlay">
+                        <h3>City Lights</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="storyModal" class="modal">
+        <span class="modal-close" onclick="closeStory()">&times;</span>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="storyTitle">Story Title</h2>
+                <p id="storyDescription">Story Description</p>
+            </div>
+            <div class="modal-gallery" id="storyGallery">
+            </div>
+        </div>
+    </div>
 
     <section id="gallery" class="section gallery">
         <div class="container">
@@ -568,6 +643,125 @@
     </footer>
 
     <script>
+        // Story data - You can customize titles, descriptions, and add more images per story
+        const stories = {
+            story1: {
+                title: "Sunset Romance",
+                description: "A beautiful evening by the bridge, where love and light intertwine",
+                images: [
+                    "Image1.jpg",
+                    "Image2.jpg",
+                    "Image3.jpg",
+                    "Image4.jpg"
+                ]
+            },
+            story2: {
+                title: "Beach Memories",
+                description: "Capturing moments where the ocean meets endless love",
+                images: [
+                    "Image2.jpg",
+                    "Image7.jpg",
+                    "Image3.jpg"
+                ]
+            },
+            story3: {
+                title: "Urban Love",
+                description: "Finding beauty in the city's heartbeat",
+                images: [
+                    "Image3.jpg",
+                    "Image8.jpg",
+                    "Image1.jpg"
+                ]
+            },
+            story4: {
+                title: "Golden Hour",
+                description: "When the light is just right and love shines brightest",
+                images: [
+                    "Image4.jpg",
+                    "Image5.jpg",
+                    "Image6.jpg"
+                ]
+            },
+            story5: {
+                title: "Intimate Moments",
+                description: "The quiet spaces between words, captured forever",
+                images: [
+                    "Image5.jpg",
+                    "Image4.jpg",
+                    "Image2.jpg"
+                ]
+            },
+            story6: {
+                title: "Together Forever",
+                description: "A journey of two hearts becoming one",
+                images: [
+                    "Image6.jpg",
+                    "Image1.jpg",
+                    "Image7.jpg",
+                    "Image8.jpg"
+                ]
+            },
+            story7: {
+                title: "By The Sea",
+                description: "Where waves whisper promises of forever",
+                images: [
+                    "Image7.jpg",
+                    "Image2.jpg",
+                    "Image6.jpg"
+                ]
+            },
+            story8: {
+                title: "City Lights",
+                description: "Urban nights and timeless love stories",
+                images: [
+                    "Image8.jpg",
+                    "Image3.jpg",
+                    "Image5.jpg"
+                ]
+            }
+        };
+
+        function openStory(storyId) {
+            const story = stories[storyId];
+            const modal = document.getElementById('storyModal');
+            const title = document.getElementById('storyTitle');
+            const description = document.getElementById('storyDescription');
+            const gallery = document.getElementById('storyGallery');
+
+            title.textContent = story.title;
+            description.textContent = story.description;
+            
+            gallery.innerHTML = '';
+            story.images.forEach(imgSrc => {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = story.title;
+                gallery.appendChild(img);
+            });
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStory() {
+            const modal = document.getElementById('storyModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('storyModal');
+            if (event.target == modal) {
+                closeStory();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeStory();
+            }
+        });
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -583,4 +777,3 @@
     </script>
 </body>
 </html>
-
